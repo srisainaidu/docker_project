@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     def date1 = new Date()
-                    printl "Date 1: ${date1}"
+                    println "Date 1: ${date1}"
                 }
             }
             post
