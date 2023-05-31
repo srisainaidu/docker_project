@@ -9,6 +9,13 @@ pipeline {
                     println "Date 1: ${date1}"
                 }
             }
+            post
+            {
+                always
+                {
+                    echo "stage 1 paased"
+                }
+            }
         }
         
         stage('Print Date 2') {
