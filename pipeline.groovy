@@ -39,7 +39,7 @@ pipeline {
         stage('Print Date 4') {
             steps {
                 script {
-                    d date4 = new Date()
+                    def date4 = new Date()
                     println "Date 4: ${date4}"
                 }
             }
