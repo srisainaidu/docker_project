@@ -5,13 +5,23 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def imageName = 'my-docker-image'
+                    def imageName = 'my-nginx-image'
                     def imageTag = 'latest'
+                    def dockerfile = '''
+                        FROM nginx
+                        LABEL maintainer="Your Name <your_email@example.com>"
+                        
+                        # Custom configurations, if needed
+                        COPY nginx.conf /etc/nginx/nginx.conf
+                        
+                        EXPOSE 80
+                        
+                        CMD ["nginx", "-g", "daemon off;"]
+                    '''
                     
-                    docker.withRegistry('https://docker.registry.url', 'docker-credentials-id') {
-                        def dockerImage = docker.build("${imageName}:${imageTag}", '.')
-                        dockerImage.push()
-                    }
+                    writeFile file: 'Dockerfile', text: dockerfile
+                    
+                    docker.build("${imageName}:${imageTag}", '-f Dockerfile .').push()
                 }
             }
         }
