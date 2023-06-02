@@ -21,7 +21,7 @@ pipeline {
                     
                     writeFile file: 'Dockerfile', text: dockerfile
                     
-                    docker.build("${imageName}:${imageTag}", '-f Dockerfile .').push()
+                    build("${imageName}:${imageTag}", '-f Dockerfile .').push()
                 }
             }
         }
